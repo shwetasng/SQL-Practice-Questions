@@ -18,6 +18,97 @@ The two primary wildcard characters used in SQL are:
 
 These wildcard characters provide powerful capabilities for searching and filtering data based on patterns rather than exact values, making them essential tools for text-based searches in SQL queries.
 
+## List of wildcard characters:
+| Symbol | Description                                                  |
+|--------|--------------------------------------------------------------|
+| %      | Represents zero or more characters                           |
+| _      | Represents a single character                                |
+| []     | Represents any single character within the brackets *        |
+| ^      | Represents any character not in the brackets *               |
+| -      | Represents any single character within the specified range * |
+| {}     | Represents any escaped character **                          |
+
+* Not supported in PostgreSQL and MySQL databases.
+
+** Supported only in Oracle databases.
+
+### EXAMPLES OF USAGE OF WILDCARDS:
+1. Using the % Wildcard
+
+```
+Return all customers that ends with the pattern 'es':
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%es';
+```
+
+```
+Return all customers that contains the pattern 'mer':
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '%mer%';
+```
+
+2. Using the _ Wildcard
+
+```
+Return all customers with a City starting with any character, followed by "ondon":
+
+SELECT * FROM Customers
+WHERE City LIKE '_ondon';
+```
+
+```
+Return all customers with a City starting with "L", followed by any 3 characters, ending with "on":
+
+SELECT * FROM Customers
+WHERE City LIKE 'L___on';
+```
+
+3. Using the [] Wildcard
+
+```
+Return all customers starting with either "b", "s", or "p":
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '[bsp]%';
+```
+
+4. Using the - Wildcard
+
+```
+Return all customers starting with "a", "b", "c", "d", "e" or "f":
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '[a-f]%';
+```
+
+5. Combine Wildcards
+
+```
+Return all customers that starts with "a" and are at least 3 characters in length:
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE 'a__%';
+```
+
+```
+Return all customers that have "r" in the second position:
+
+SELECT * FROM Customers
+WHERE CustomerName LIKE '_r%';
+```
+
+6. Without Wildcard
+
+```
+Return all customers from Spain:
+
+SELECT * FROM Customers
+WHERE Country LIKE 'Spain';
+
+```
+
 ## Use of LIKE keyword:
 
 - In SQL, the LIKE keyword is used in conjunction with pattern matching to search for specific patterns within string data. It allows you to perform wildcard searches, where you can specify placeholders for unknown characters using the '%' symbol for zero or more characters, or '_' for exactly one character.
